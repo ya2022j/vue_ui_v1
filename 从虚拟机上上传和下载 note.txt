@@ -1,0 +1,13 @@
+
+
+虚拟机ip 
+
+
+
+scp root@虚拟机ip :/mnt/t  C:\shares\  # 下载虚拟机ip 的⽂件
+
+scp  main.js  root@虚拟机ip :/mnt # 上传test文件到虚拟机ip 
+
+scp -r root@虚拟机ip :/mnt/   C:\shares\ . # 下载test整个目录到本地
+
+scp -r vue-demo2 root@虚拟机ip :/mnt # 上传本地test整个⽬录到虚拟机ip 
