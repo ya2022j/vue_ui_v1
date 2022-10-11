@@ -1,3 +1,32 @@
+made with vue.js   https://madewithvuejs.com/
+
+vue-advanced-chat  https://github.com/antoine92190/vue-advanced-chat
+使用golang和vue构建一个简单的WebSockets聊天应用程序   https://www.jianshu.com/p/2d84f0d0e329
+vue插件大全汇总，你要的都这里，赶紧收藏下！  https://blog.csdn.net/ManArs/article/details/119786297
+vue常用插件汇总  http://t.zoukankan.com/huanhuan55-p-10179889.html
+【vue】插件 https://www.jianshu.com/p/ff0fd69af862
+
+这可能是B站讲的最好的Vue教程，5h打通vue全套教程丨2021最新版，Vue2.0+Vue3.0从入门到精通，大厂前端必备技能（附源码&笔记）
+ https://www.bilibili.com/video/av721344841/
+箭头函数还有一个特点就是能够简化return的书写。
+
+
+var a = function (n){
+  return n
+}
+ 
+var b = (n) => n //可以省略return和花括号
+ 
+var c = n => n //如果只有一个参数，中括号也可以省略
+ 
+a(1) // => 1
+b(1) // => 1
+c(1) // => 1
+
+分分钟玩转Vue.js组件  https://www.jb51.net/article/95589.htm
+
+Vue.js每天必学之组件与组件间的通信 https://www.jb51.net/article/92187.htm
+
 
 Flask + Vue 搭建简易系统步骤总结  https://www.jianshu.com/p/ead7317d01ec
 Vue和Flask通信的实现  https://www.jb51.net/article/212706.htm
