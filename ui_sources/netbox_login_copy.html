@@ -1,0 +1,260 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html
+  lang="en"
+  data-netbox-url-name="login"
+  data-netbox-base-path=""
+
+
+      data-netbox-color-mode="unset"
+
+
+  >
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, viewport-fit=cover"
+    />
+
+
+    <title>Home | NetBox</title>
+
+    <script type="text/javascript">
+      /**
+       * Set the color mode on the `<html/>` element and in local storage.
+       *
+       * @param mode {"dark" | "light"} NetBox Color Mode.
+       * @param inferred {boolean} Value is inferred from browser/system preference.
+       */
+      function setMode(mode, inferred) {
+          document.documentElement.setAttribute("data-netbox-color-mode", mode);
+          localStorage.setItem("netbox-color-mode", mode);
+          localStorage.setItem("netbox-color-mode-inferred", inferred);
+      }
+      /**
+       * Determine the best initial color mode to use prior to rendering.
+       */
+      (function () {
+          try {
+              // Browser prefers dark color scheme.
+              var preferDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+              // Browser prefers light color scheme.
+              var preferLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+              // Client NetBox color-mode override.
+              var clientMode = localStorage.getItem("netbox-color-mode");
+              // NetBox server-rendered value.
+              var serverMode = document.documentElement.getAttribute("data-netbox-color-mode");
+              // Color mode is inferred from browser/system preference and not deterministically set by
+              // the client or server.
+              var inferred = JSON.parse(localStorage.getItem("netbox-color-mode-inferred"));
+
+              if (inferred === true && (serverMode === "light" || serverMode === "dark")) {
+                  // The color mode was previously inferred from browser/system preference, but
+                  // the server now has a value, so we should use the server's value.
+                  return setMode(serverMode, false);
+              }
+              if (clientMode === null && (serverMode === "light" || serverMode === "dark")) {
+                  // If the client mode is not set but the server mode is, use the server mode.
+                  return setMode(serverMode, false);
+              }
+              if (clientMode !== null && serverMode === "unset") {
+                  // The color mode has been set, deterministically or otherwise, and the server
+                  // has no preference or has not been set. Use the client mode, but allow it to
+                  /// be overridden by the server if/when a server value exists.
+                  return setMode(clientMode, true);
+              }
+              if (
+                  clientMode !== null &&
+                  (serverMode === "light" || serverMode === "dark") &&
+                  clientMode !== serverMode
+              ) {
+                  // If the client mode is set and is different than the server mode (which is also set),
+                  // use the client mode over the server mode, as it should be more recent.
+                  return setMode(clientMode, false);
+              }
+              if (clientMode === serverMode) {
+                  // If the client and server modes match, use that value.
+                  return setMode(clientMode, false);
+              }
+              if (preferDark && serverMode === "unset") {
+                  // If the server mode is not set but the browser prefers dark mode, use dark mode, but
+                  // allow it to be overridden by an explicit preference.
+                  return setMode("dark", true);
+              }
+              if (preferLight && serverMode === "unset") {
+                  // If the server mode is not set but the browser prefers light mode, use light mode,
+                  // but allow it to be overridden by an explicit preference.
+                  return setMode("light", true);
+              }
+          } catch (error) {
+              // In the event of an error, log it to the console and set the mode to light mode.
+              console.error(error);
+          }
+          return setMode("light", true);
+      })();
+      window.CSRF_TOKEN = "tPF7MgTbwd20LsT80hGAqnAvTp7Si2WpFyx28WKwzpG63EDxOD0e6DhR9UjFCpVr";
+    </script>
+
+
+    <link
+      rel="stylesheet"
+      href="https://demo.netbox.dev/static/netbox-external.css?v=3.3.5"
+      onerror="window.location='/media-failure/?filename=netbox-external.css'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://demo.netbox.dev/static/netbox-light.css?v=3.3.5"
+      onerror="window.location='/media-failure/?filename=netbox-light.css'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://demo.netbox.dev/static/netbox-dark.css?v=3.3.5"
+      onerror="window.location='/media-failure/?filename=netbox-dark.css'"
+    />
+    <link
+      rel="stylesheet"
+      media="print"
+      href="https://demo.netbox.dev/static/netbox-print.css?v=3.3.5"
+      onerror="window.location='/media-failure/?filename=netbox-print.css'"
+    />
+    <link rel="icon" type="image/png" href="https://demo.netbox.dev/static/netbox.ico" />
+    <link rel="apple-touch-icon" type="image/png" href="https://demo.netbox.dev/static/netbox_touch-icon-180.png" />
+
+
+    <script
+      type="text/javascript"
+      src="https://demo.netbox.dev/static/netbox.js?v=3.3.5"
+      onerror="window.location='/media-failure/?filename=netbox.js'">
+    </script>
+
+
+
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      function checkSideNav() {
+        // Check localStorage to see if the sidebar should be pinned.
+        var sideNavRaw = localStorage.getItem('netbox-sidenav');
+        // Determine if the device has a small screeen. This media query is equivalent to
+        // bootstrap's media-breakpoint-down(lg) breakpoint mixin, which is what the sidenav's
+        // CSS uses.
+        var isSmallScreen = window.matchMedia('(max-width: 991.98px)').matches;
+        if (typeof sideNavRaw === 'string') {
+          var sideNavState = JSON.parse(sideNavRaw);
+          if (sideNavState.pinned === true && !isSmallScreen) {
+            // If the sidebar should be pinned and this is not a small screen, set the appropriate
+            // body attributes prior to the rest of the content rendering. This prevents
+            // jumpy/glitchy behavior on page reloads.
+            document.body.setAttribute('data-sidenav-pinned', '');
+            document.body.setAttribute('data-sidenav-show', '');
+            document.body.removeAttribute('data-sidenav-hidden');
+          } else {
+            document.body.removeAttribute('data-sidenav-pinned');
+            document.body.setAttribute('data-sidenav-hidden', '');
+          }
+        }
+      }
+      window.addEventListener('resize', function(){ checkSideNav() });
+      checkSideNav();
+    </script>
+
+
+
+  <main class="login-container text-center">
+
+
+
+      <div class="mw-90 mw-md-75 mw-lg-80 mw-xl-75 mw-xxl-50">
+
+<center>
+<p>This is a demo instance of <a href="https://github.com/netbox-community/netbox">NetBox</a> for public use.</p>
+<p>Log in with the username <strong>admin</strong> and password <strong>admin</strong>.</p>
+<p>Data is reset nightly at 04:00 UTC.</p>
+</center>
+
+      </div>
+
+
+
+
+
+
+    <div class="form-login">
+      <form action="/login/" method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="tPF7MgTbwd20LsT80hGAqnAvTp7Si2WpFyx28WKwzpG63EDxOD0e6DhR9UjFCpVr">
+
+
+        <div class="mb-4">
+          <img src="netbox_login_copy.png" height="80" alt="NetBox logo" />
+        </div>
+
+
+
+        <input type="hidden" name="next" value="/" />
+
+
+        <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="form-control" required placeholder="Username" id="id_username">
+        <input type="password" name="password" autocomplete="current-password" class="form-control" required placeholder="Password" id="id_password">
+
+        <button type="submit" class="btn btn-primary btn-lg w-100 mt-4">
+          Sign In
+        </button>
+      </form>
+    </div>
+
+
+  </main>
+
+
+  <footer class="footer container-fluid login-footer p-3">
+    <div class="row align-items-center w-100">
+      <div class="col-2 col-md-1 mb-0">
+        <button type="button" class="btn btn-sm color-mode-toggle" title="Toggle Color Mode">
+          <i class="color-mode-icon mdi mdi-lightbulb"></i>&nbsp;
+        </button>
+      </div>
+      <div class="col-1 col-md-auto mb-0"></div>
+      <div class="col text-end mb-0">
+        <small class="text-muted">
+          netbox-demo (v3.3.5)
+        </small>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+
+<div id="django-messages" class="toast-container">
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+    <div id="netbox-data" style="display: none!important; visibility: hidden!important">
+
+    </div>
+
+  </body>
+</html>
