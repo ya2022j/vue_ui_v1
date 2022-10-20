@@ -198,6 +198,15 @@
         <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="form-control" required placeholder="Username" id="id_username">
         <input type="password" name="password" autocomplete="current-password" class="form-control" required placeholder="Password" id="id_password">
 
+<!-- 报错提示 -->
+    <div class="warning">
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+    {{ message }}
+</div>
+        {% endfor %}
+    </div>
+
         <button type="submit" class="btn btn-primary btn-lg w-100 mt-4">
           Sign In
         </button>
