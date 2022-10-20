@@ -3,7 +3,7 @@
 
 
 
-from flask import Flask,render_template,redirect,request,session
+from flask import Flask,render_template,redirect,request,session,flash
 # from flask_login import LoginManager
 
 
@@ -24,7 +24,8 @@ def login():
         session['user_info'] = username
         return redirect('/')
     else:
-        return render_template('netbox_login_copy.html', msg='用户名或密码输入错误')
+        flash('username or password is incorrect')
+        return render_template('netbox_login_copy.html')
 
 @app.route('/')
 def index():
